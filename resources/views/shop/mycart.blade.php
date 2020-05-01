@@ -4,20 +4,24 @@
 <div class="container-fluid">
   <div class="">
     <div class="mx-auto" style="max-width:1200px">
-      <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">商品一覧</h1>
-      <div class="">
-        <div class="d-flex flex-row flex-wrap">
-          {{-- 追加 --}}
+      <h1 class="text-center font-weight-bold" style="color:#555555;  font-size:1.2em; padding:24px 0px;">
+        {{ Auth::user()->name }}さんのカートの中身</h1>
 
-          @foreach($carts as $cart)
-          {{$cart->stock_id}} <br>
-          {{$cart->user_id}}<br>
-          <br>
-          @endforeach
-          {{-- ここまで --}}
+      <div class="">
+        <p class="text-center">{{ $message }}</p><br>
+        <div class="d-flex flex-row flex-wrap">
+
+          @foreach($my_carts as $my_cart)
+          <div class="mycart_box">
+            <p>ユーザーID：{{$my_cart->user_id}}</p>
+            <p>ストックID：{{$my_cart->stock_id}}</p>
+              @endforeach
+
+          </div>
+
+          <a href="/">商品一覧へ</a>
         </div>
       </div>
     </div>
   </div>
-</div>
-@endsection
+  @endsection

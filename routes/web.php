@@ -17,6 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 //
-Route::get('/mycart', 'ShopController@mycart')->name('shop.mycart')->middleware('auth');
+// Route::get('/mycart', 'ShopController@mycart')->name('shop.mycart')->middleware('auth');
+
+Route::group(['prefix' => 'shop', 'middleware' => 'auth'], function() {
+  Route::get('/', 'ShopController@index')->name('shop.index');
+  Route::get('mycart', 'ShopController@mycart')->name('shop.mycart');
+  Route::post('mycart', 'ShopController@addMycart')->name('shop.addMycart');
+});
+
