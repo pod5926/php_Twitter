@@ -25,5 +25,6 @@ Route::group(['prefix' => 'shop', 'middleware' => 'auth'], function() {
   Route::get('/', 'ShopController@index')->name('shop.index');
   Route::get('mycart', 'ShopController@mycart')->name('shop.mycart');
   Route::post('mycart', 'ShopController@addMycart')->name('shop.addMycart');
+  Route::post('mycart/{id}', 'ShopController@deleteMycart')->name('shop.deleteMycart');
 });
 

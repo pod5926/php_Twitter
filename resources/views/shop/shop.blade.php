@@ -21,7 +21,7 @@
 
               {{-- 追加 --}}
 
-              <form action="{{ route('shop.mycart') }}" method="post">
+              <form action="{{ route('shop.addMycart') }}" method="post">
                 @csrf
                 <input type="hidden" name="stock_id" value="{{ $stock->id }}">
                 <input type="submit" value="カートに入れる">
@@ -31,7 +31,7 @@
             </div>
 
             {{-- 追加 --}}
-            <a class="text-center" href="/">商品一覧へ</a>
+            {{-- <a class="text-center" href="/">商品一覧へ</a> --}}
             {{-- ここまで --}}
 
           </div>

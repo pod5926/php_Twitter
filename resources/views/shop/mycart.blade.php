@@ -8,20 +8,28 @@
         {{ Auth::user()->name }}さんのカートの中身</h1>
 
       <div class="">
-        <p class="text-center">{{ $message }}</p><br>
+        <p class="text-center">{{ $message ?? '' }}</p><br>
         <div class="d-flex flex-row flex-wrap">
-
           @foreach($my_carts as $my_cart)
-          <div class="mycart_box">
-            <p>ユーザーID：{{$my_cart->user_id}}</p>
-            <p>ストックID：{{$my_cart->stock_id}}</p>
-              @endforeach
+          <div class="mycart_box" style="width:1200px">
+            {{$my_cart->stock->name}} <br>
+            {{ number_format($my_cart->stock->fee)}}円 <br>
+            <img src="/image/{{$my_cart->stock->imgpath}}" alt="" class="incart">
+            <br>
 
+            <form action="{{ route('shop.deleteMycart', ['id' => $my_cart->stock->id]) }}" method="post">
+              @csrf
+              <input type="hidden" name="stock_id" value="{{ $my_cart->stock->id }}">
+              <input type="submit" value="カートから削除する">
+            </form>
           </div>
+          @endforeach
 
-          <a href="/">商品一覧へ</a>
         </div>
+
+        <a href="{{ route('shop.index') }}">商品一覧へ</a>
       </div>
     </div>
   </div>
-  @endsection
+</div>
+@endsection
