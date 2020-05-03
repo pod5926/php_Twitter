@@ -12,11 +12,22 @@ class Cart extends Model
     'stock_id', 'user_id',
   ];
 
+
   public function showCart()
   {
     $user_id = Auth::id();
-    return $this->where('user_id', $user_id)->get();
+    $data['my_carts'] = $this->where('user_id', $user_id)->get();
+
+    $data['count'] = 0;
+    $data['sum'] = 0;
+
+    foreach ($data['my_carts'] as $my_cart) {
+      $data['count']++;
+      $data['sum'] += $my_cart->stock->fee;
+    }
+    return $data;
   }
+
 
   public function stock()
   {
@@ -49,5 +60,14 @@ class Cart extends Model
     }
 
     return $message;
+  }
+
+  public function checkoutCart()
+  {
+    $user_id = Auth::id();
+    $checkout_items = $this->where('user_id', $user_id)->get();
+    $this->where('user_id', $user_id)->delete();
+
+    return $checkout_items;
   }
 }

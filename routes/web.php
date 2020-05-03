@@ -11,20 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 //
 // Route::get('/mycart', 'ShopController@mycart')->name('shop.mycart')->middleware('auth');
+Route::get('/', 'ShopController@index')->name('shop.index');
 
 Route::group(['prefix' => 'shop', 'middleware' => 'auth'], function() {
-  Route::get('/', 'ShopController@index')->name('shop.index');
   Route::get('mycart', 'ShopController@mycart')->name('shop.mycart');
   Route::post('mycart', 'ShopController@addMycart')->name('shop.addMycart');
   Route::post('mycart/{id}', 'ShopController@deleteMycart')->name('shop.deleteMycart');
+  Route::post('checkout}', 'ShopController@checkout')->name('shop.checkout');
+
 });
 

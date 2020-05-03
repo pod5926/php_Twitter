@@ -19,8 +19,8 @@ class ShopController extends Controller
   public function myCart(Cart $cart)
   {
     // $user_id = Auth::id();
-    $my_carts = $cart->showCart();
-    return view('shop.mycart', compact('my_carts'));
+    $data = $cart->showCart();
+    return view('shop.mycart', $data);
   }
 
   public function addMycart(Request $request, Cart $cart)
@@ -31,9 +31,9 @@ class ShopController extends Controller
     $message = $cart->addCart($stock_id);
 
     //追加後の情報を取得
-    $my_carts = $cart->showCart();
+    $data = $cart->showCart();
 
-    return view('shop.mycart', compact('my_carts', 'message'));
+    return view('shop.mycart', $data)->with('message', $message);
   }
 
   public function deleteMycart(Request $request, Cart $cart)
@@ -43,8 +43,14 @@ class ShopController extends Controller
     $message = $cart->deleteCart($stock_id);
 
     //追加後の情報を取得
-    $my_carts = $cart->showCart();
+    $data = $cart->showCart();
 
-    return view('shop.mycart', compact('my_carts', 'message'));
+    return view('shop.mycart', $data)->with('message', $message);
+  }
+
+  public function checkout(Cart $cart)
+  {
+    $checkout_info = $cart->checkoutCart();
+    return view('shop.checkout');
   }
 }
